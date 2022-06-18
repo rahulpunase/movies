@@ -1,0 +1,63 @@
+$themeRed: #ea1b24;
+$white: #ffffff;
+$lightGrey: #dadada;
+
+$dark: #0e0c10;
+$lightDark: #19171f;
+$darkOp: #0e0c1094;
+
+$dullLink: #a0a1a2;
+$muddyBrown: #2f2d34;
+
+$mediumBold: 400;
+
+$darkTheme: (
+  primary: $themeRed,
+  primary-background: $dark,
+  secondary-background: $lightDark,
+  font: $white,
+  divider: $lightDark,
+  linkInActive: $dullLink,
+  opacBackground: $darkOp,
+);
+
+$lightTheme: (
+  primary: $themeRed,
+  primary-background: $white,
+  secondary-background: $lightGrey,
+  font: $dark,
+  divider: $lightGrey,
+  linkInActive: $dullLink,
+  opacBackground: $darkOp,
+);
+
+@mixin themable($theme-name, $map) {
+  .#{$theme-name} {
+    background-color: map-get($map, "primary-background");
+    .ant-typography {
+      color: map-get($map, "font");
+    }
+    .ant-divider {
+      border-top: 1px solid map-get($map, "divider");
+      color: map-get($map, "divider");
+    }
+    .custom-links {
+      color: map-get($map, "linkInActive");
+      &.active {
+        color: map-get($map, "font");
+      }
+    }
+    .ant-card {
+      background-color: map-get($map, "primary-background");
+    }
+    .theme-primary-background {
+      background-color: map-get($map, "primary-background");
+    }
+    .theme-secondary-background {
+      background-color: map-get($map, "secondary-background");
+    }
+    .theme-primary-background-op {
+      background-color: map-get($map, "opacBackground");
+    }
+  }
+} ;

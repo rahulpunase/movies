@@ -1,0 +1,24 @@
+@import "./styles/variables";
+
+body {
+  height: 100%;
+  color: white;
+  #root {
+    height: 100%;
+    @include themable("dark", $darkTheme);
+    @include themable("light", $lightTheme);
+  }
+}
+
+// custom utility class
+.custom-links {
+  font-weight: $mediumBold;
+}
+
+.custom-cursor-pointer {
+  cursor: pointer;
+}
+
+.ant-card-body {
+  padding: 0;
+}
