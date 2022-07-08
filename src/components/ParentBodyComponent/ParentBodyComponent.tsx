@@ -29,7 +29,7 @@ const ParentBodyComponent = () => {
     <div className={`${styles.App}`}>
       <main className={styles.mainContainer}>
         <Row className="h-100">
-          {/* <Col
+          <Col
             span={4}
             style={{ position: "relative" }}
             ref={leftFixedPanelParent}
@@ -44,14 +44,14 @@ const ParentBodyComponent = () => {
               <div style={{ height: "54px" }}></div>
               <SideMenuComponent />
             </div>
-          </Col> */}
-          <Col span={24} className="theme-secondary-background">
+          </Col>
+          <Col span={15} className="theme-secondary-background">
             <Content>
-              {/* <HeaderComponent /> */}
+              <HeaderComponent />
               <RenderRoutes />
             </Content>
           </Col>
-          {/* <Col
+          <Col
             span={5}
             style={{ position: "relative" }}
             ref={rightFixedPanelParent}
@@ -65,7 +65,7 @@ const ParentBodyComponent = () => {
             >
               <RightSideBarComponent />
             </div>
-          </Col> */}
+          </Col>
         </Row>
       </main>
     </div>

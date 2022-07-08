@@ -25,7 +25,7 @@ const RenderRoutes = () => {
     <React.Fragment>
       <Routes location={state?.backgroundLocation || location}>
         <Route path="/" element={<Navigate to="/movies/" replace />} />
-        <Route path="/movies/" element={<MovieViewResponsive />} />
+        <Route path="/movies/" element={<MoviesView />} />
         <Route path="/tv-shows/" element={<TvShowsView />} />
         <Route path="/discover/:type/" element={<DiscoverView />} />
         <Route path="/movie/:id/" element={<MovieDetailsView />} />
