@@ -1,13 +1,17 @@
-$themeRed: #ea1b24;
+$themeRed: #ea7c1b;
 $white: #ffffff;
 $lightGrey: #dadada;
 
 $dark: #0e0c10;
-$lightDark: #19171f;
-$darkOp: #0e0c1094;
+$lightDark: #2a2626;
+$darkOp: #0e0c10b8;
 
 $dullLink: #a0a1a2;
 $muddyBrown: #2f2d34;
+
+$secondaryBorder: #3f3f40;
+$disabledColor: #6e6969;
+$disabledInput: #29292c;
 
 $mediumBold: 400;
 
@@ -19,6 +23,11 @@ $darkTheme: (
   divider: $lightDark,
   linkInActive: $dullLink,
   opacBackground: $darkOp,
+  placeholder: $dullLink,
+  secondaryBorder: $secondaryBorder,
+  diff-backcground: $secondaryBorder,
+  disabledColor: $disabledColor,
+  disabledInput: $disabledInput,
 );
 
 $lightTheme: (
@@ -29,13 +38,23 @@ $lightTheme: (
   divider: $lightGrey,
   linkInActive: $dullLink,
   opacBackground: $darkOp,
+  placeholder: $dullLink,
+  secondaryBorder: $secondaryBorder,
+  disabledColor: $disabledColor,
+  disabledInput: $disabledInput,
 );
 
 @mixin themable($theme-name, $map) {
-  .#{$theme-name} {
+  &.#{$theme-name} {
     background-color: map-get($map, "primary-background");
     .ant-typography {
       color: map-get($map, "font");
+      &.with-primary {
+        color: map-get($map, "primary");
+      }
+    }
+    .ant-typography-secondary {
+      color: map-get($map, "linkInActive") !important;
     }
     .ant-divider {
       border-top: 1px solid map-get($map, "divider");
@@ -50,6 +69,24 @@ $lightTheme: (
     .ant-card {
       background-color: map-get($map, "primary-background");
     }
+    .ant-input {
+      background-color: map-get($map, "secondary-background");
+      outline: none;
+      border: none;
+      color: map-get($map, "font");
+      &:focus {
+        border: none;
+        border-color: transparent;
+        box-shadow: none;
+      }
+      &::placeholder {
+        color: map-get($map, "placeholder");
+      }
+      &.ant-input-disabled {
+        color: map-get($map, "disabledColor");
+        background-color: map-get($map, "disabledInput");
+      }
+    }
     .theme-primary-background {
       background-color: map-get($map, "primary-background");
     }
@@ -58,6 +95,59 @@ $lightTheme: (
     }
     .theme-primary-background-op {
       background-color: map-get($map, "opacBackground");
+    }
+    .custom-side-line::after {
+      background-color: map-get($map, "primary");
+    }
+    .ant-modal-body {
+      background-color: map-get($map, "secondary-background");
+    }
+    .ant-modal-content {
+      background-color: map-get($map, "secondary-background");
+    }
+    .ant-modal-wrap {
+      background-color: map-get($map, "opacBackground");
+    }
+    .ant-spin-container {
+      .ant-list-item {
+        border-bottom-color: map-get($map, "secondaryBorder");
+      }
+    }
+    .ant-empty-description {
+      color: map-get($map, "font");
+    }
+    .theme-secondary-input-background {
+      background-color: map-get($map, "secondaryBorder");
+    }
+    .ant-dropdown-button {
+      border: none;
+      .ant-btn {
+        background-color: map-get($map, "primary-background");
+        color: map-get($map, "font");
+        border: none;
+      }
+    }
+    .ant-dropdown-menu,
+    .ant-menu {
+      background-color: map-get($map, "primary-background");
+      li {
+        color: map-get($map, "font");
+        &.ant-dropdown-menu-item-active {
+          background-color: map-get($map, "secondaryBorder");
+        }
+        &.ant-menu-item-active {
+          background-color: map-get($map, "secondaryBorder");
+        }
+        &.ant-dropdown-menu-item-danger {
+          background-color: red;
+        }
+        &.ant-menu-item-selected {
+          background-color: map-get($map, "secondaryBorder");
+        }
+      }
+    }
+    .ant-avatar {
+      background-color: map-get($map, "diff-backcground");
     }
   }
 } ;

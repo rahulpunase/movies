@@ -1,8 +1,10 @@
-import { Card } from "antd";
-import React, { FC } from "react";
+import { FC } from "react";
+import { Link } from "react-router-dom";
 import { MvImage } from "src/components/MvImage/MvImage";
-import { ITVShowItem } from "src/interfaces/ITvShow.interface";
+import { ITVShowItem } from "src/interfaces/IMovie.interface";
 import { BottomContainer } from "../BottomContainer/BottomContainer";
+import styles from "../BigContentSwiperSliderComponent.module.scss";
+import ItemAuthDropDownComponent from "src/components/ItemAuthDropDownComponent/ItemAuthDropDownComponent";
 
 interface IRenderTVShowItem {
   item: ITVShowItem;
@@ -10,12 +12,16 @@ interface IRenderTVShowItem {
 
 export const TVShowItem: FC<IRenderTVShowItem> = ({ item }) => {
   return (
-    <Card
-      style={{ height: "470px", position: "relative" }}
-      bordered={false}
-      cover={<MvImage size="w600_and_h900_bestv2" srcPath={item.poster_path} />}
-    >
-      <BottomContainer name={item.name} />
-    </Card>
+    <div className={styles.itemComponent}>
+      <ItemAuthDropDownComponent item={item} type="movie" />
+      <Link to={`/tv/${item.id}/?filter=`}>
+        <MvImage size="w600_and_h900_bestv2" srcPath={item.poster_path} />
+      </Link>
+      <BottomContainer
+        name={item.name}
+        rating={item.vote_average}
+        overview={item.overview}
+      />
+    </div>
   );
 };

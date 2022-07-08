@@ -3,10 +3,10 @@
 body {
   height: 100%;
   color: white;
+  @include themable("dark", $darkTheme);
+  @include themable("light", $lightTheme);
   #root {
     height: 100%;
-    @include themable("dark", $darkTheme);
-    @include themable("light", $lightTheme);
   }
 }
 
@@ -21,4 +21,30 @@ body {
 
 .ant-card-body {
   padding: 0;
+}
+
+.custom-side-line {
+  padding-left: 12px;
+}
+
+.custom-side-line::after {
+  content: "";
+  height: 75%;
+  width: 5px;
+  position: absolute;
+  border-radius: 1px;
+  left: 0;
+}
+
+.br-1 {
+  border-radius: 2px;
+}
+.br-2 {
+  border-radius: 4px;
+}
+.br-3 {
+  border-radius: 8px;
+}
+.br-4 {
+  border-radius: 16px;
 }

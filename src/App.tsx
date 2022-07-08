@@ -1,61 +1,59 @@
-import { useContext, useEffect, useLayoutEffect, useRef } from "react";
-import { Col, Divider, Layout, Row } from "antd";
-import Sider from "antd/lib/layout/Sider";
-import { Content } from "antd/lib/layout/layout";
+import { useContext, useEffect } from "react";
 import { CustomThemecontext } from "./theme/themeContext";
-import { HeaderComponent, SideMenuComponent } from "./components";
-import RenderRoutes from "./configurations/RenderRoutes";
-import styles from "./App.module.scss";
-import { useDispatch } from "react-redux";
+import { ParentBodyComponent } from "./components";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchConfiguration } from "./redux/ducks/configuration.slice";
-import { AppDispatch } from "./redux/store";
+import { AppDispatch, TRootState } from "./redux/store";
+import Progress from "./components/Progress/Progress";
+import { supabase } from "./services/instance/supabase.instance";
+import {
+  fetchFavorites,
+  fetchProfile,
+  logoutUser,
+  setSession,
+} from "./redux/ducks/profile.slice";
+
+const themes = ["dark", "light"];
 
 function App() {
-  const { theme, getColors } = useContext(CustomThemecontext);
+  const { theme } = useContext(CustomThemecontext);
   const dispatch = useDispatch<AppDispatch>();
-  const leftFixedPanelParent = useRef<HTMLDivElement>(null);
-  const leftFixedPanel = useRef<HTMLDivElement>(null);
+  const { isLoading } = useSelector(
+    (store: TRootState) => store.configureReducer
+  );
+
+  useEffect(() => {
+    const session = supabase.auth.session();
+    if (session) {
+      dispatch(setSession(session));
+      dispatch(fetchProfile({}));
+      dispatch(fetchFavorites({}));
+    } else {
+      dispatch(logoutUser());
+    }
+
+    supabase.auth.onAuthStateChange((_event: any, session: any) => {
+      if (session) {
+        dispatch(setSession(session));
+        dispatch(fetchProfile({}));
+      }
+    });
+  }, [dispatch]);
+
   useEffect(() => {
     dispatch(fetchConfiguration());
   }, [dispatch]);
-  useLayoutEffect(() => {
-    if (leftFixedPanelParent?.current && leftFixedPanel?.current) {
-      leftFixedPanel.current.style.width = String(
-        leftFixedPanelParent.current.offsetWidth + "px"
-      );
-    }
-  }, []);
+
+  useEffect(() => {
+    themes.forEach((theme) => document.body.classList.remove(theme));
+    document.body.classList.add(theme);
+  }, [theme]);
+
   return (
-    <div className={`${styles.App} ${theme}`}>
-      <main className={styles.mainContainer}>
-        <Row className="theme-primary-background">
-          <Col
-            span={4}
-            style={{ position: "relative" }}
-            ref={leftFixedPanelParent}
-          >
-            <div
-              ref={leftFixedPanel}
-              style={{
-                position: "fixed",
-              }}
-            >
-              <div style={{ height: "54px" }}></div>
-              <SideMenuComponent />
-            </div>
-          </Col>
-          <Col span={15} className="theme-secondary-background">
-            <div>
-              <Content>
-                <HeaderComponent />
-                <RenderRoutes />
-              </Content>
-            </div>
-          </Col>
-          <Col span={5}></Col>
-        </Row>
-      </main>
-    </div>
+    <>
+      <Progress isAnimating={isLoading} />
+      <ParentBodyComponent />
+    </>
   );
 }
 

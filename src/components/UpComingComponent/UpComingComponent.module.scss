@@ -1,0 +1,44 @@
+.UpComingComponent {
+  background: linear-gradient(
+    180deg,
+    rgba(42, 38, 38, 1) 0%,
+    rgba(42, 38, 38, 1) 7%,
+    rgba(234, 124, 27, 1) 100%
+  );
+
+  .grad {
+    background: linear-gradient(
+      180deg,
+      rgba(42, 38, 38, 1) 5%,
+      rgba(42, 38, 38, 0.9038209033613446) 16%,
+      rgba(234, 124, 27, 0) 100%
+    );
+
+    top: 0;
+  }
+  .fixedBc {
+    top: 0;
+    opacity: 0.1;
+  }
+
+  .upComingItem {
+    .onHover {
+      transition: all 0.3s ease-in-out;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.1, 1.1);
+        .play {
+          opacity: 1;
+          transition: all 0.3s ease-in-out;
+        }
+      }
+    }
+
+    .play {
+      top: 0;
+      opacity: 0.3;
+    }
+  }
+}

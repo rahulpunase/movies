@@ -1,0 +1,9 @@
+export { default as MovieDetailsView } from "./MovieDetailsView/MovieDetails.view";
+export { default as MoviesView } from "./MoviesView/Movies.view";
+export { default as TvShowsView } from "./TvShowsView/TvShows.view";
+export { default as PeopleView } from "./PeopleView/People.view";
+export { default as SearchView } from "./SearchView/Search.view";
+export { default as TVShowDetailsView } from "./TVShowDetailsView/TVShowDetails.view";
+export { default as LoginView } from "./LoginView/Login.view";
+export { default as ProfileBodyView } from "./ProfileBodyView/ProfileBody.view";
+export { default as DiscoverView } from "./DiscoverView/Discover.view";
