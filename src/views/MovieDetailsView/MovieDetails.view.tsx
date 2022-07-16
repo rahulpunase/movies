@@ -23,7 +23,7 @@ const MovieDetailsView = () => {
   const { movieDetails, cast, crew } = useSelector(
     (store: TRootState) => store.movieDetailsReducer
   );
-  console.log(movieDetails);
+
   const {
     poster_path,
     title,
@@ -45,7 +45,7 @@ const MovieDetailsView = () => {
     dispatch(fetchCastandCrewForMovieFromId({ id: id as string }));
   }, [id, dispatch]);
   return (
-    <Row className="pa-4">
+    <Row className="mt-10">
       <Col span={24}>
         {movieDetails.isLoading ? (
           <LoadingViewComponent />
@@ -67,11 +67,13 @@ const MovieDetailsView = () => {
               producers={producers}
             />
             <div className="mb-4"></div>
-            <Col span={24}>
+            <Col span={24} className="pa-4">
               <MultiVideoPlayerComponent videos={movieDetails.videos.results} />
             </Col>
             <div className="mb-4"></div>
-            <CastComponent cast={cast.results} />
+            <Col span={24} className="pa-4">
+              <CastComponent cast={cast.results} />
+            </Col>
           </>
         )}
       </Col>

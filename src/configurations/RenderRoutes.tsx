@@ -6,15 +6,16 @@ import {
   DiscoverView,
   LoginView,
   MovieDetailsView,
-  MoviesView,
   PeopleView,
   ProfileBodyView,
   SearchView,
   TVShowDetailsView,
-  TvShowsView,
 } from "src/views";
 
-import MovieViewResponsive from "src/responsive/views/movies.view";
+const MoviesView = React.lazy(() => import("../views/MoviesView/Movies.view"));
+const TvShowsView = React.lazy(
+  () => import("../views/TvShowsView/TvShows.view")
+);
 
 const RenderRoutes = () => {
   let location = useLocation();
@@ -25,8 +26,22 @@ const RenderRoutes = () => {
     <React.Fragment>
       <Routes location={state?.backgroundLocation || location}>
         <Route path="/" element={<Navigate to="/movies/" replace />} />
-        <Route path="/movies/" element={<MoviesView />} />
-        <Route path="/tv-shows/" element={<TvShowsView />} />
+        <Route
+          path="/movies/"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <MoviesView />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="/tv-shows/"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <TvShowsView />
+            </React.Suspense>
+          }
+        />
         <Route path="/discover/:type/" element={<DiscoverView />} />
         <Route path="/movie/:id/" element={<MovieDetailsView />} />
         <Route path="/tv/:id/" element={<TVShowDetailsView />} />

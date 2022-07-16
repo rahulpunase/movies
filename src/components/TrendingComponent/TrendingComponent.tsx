@@ -19,10 +19,10 @@ const TrendingComponent: FC<ITrendingComponent> = ({ data }) => {
   const [overDivVal, setOverDivVal] = useState<any>();
   let timer: any = null;
   const onHover = (val: any) => {
-    setOverDivVal(val);
-    timer = setTimeout(function () {
-      setOverDivVal(val);
-    }, 500);
+    // setOverDivVal(val);
+    // timer = setTimeout(function () {
+    //   setOverDivVal(val);
+    // }, 500);
   };
   const onHoverOut = () => {
     clearTimeout(timer);
@@ -54,11 +54,11 @@ const TrendingComponent: FC<ITrendingComponent> = ({ data }) => {
           pagination={{
             clickable: true,
           }}
-          slidesPerView={6.3}
+          slidesPerView={3.3}
           className="mySwiper"
         >
-          {data.map((trend) => (
-            <SwiperSlide>
+          {data.map((trend, index) => (
+            <SwiperSlide key={index}>
               <>
                 <ItemAuthDropDownComponent
                   item={trend}

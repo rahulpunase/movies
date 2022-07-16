@@ -26,33 +26,27 @@ const MultiVideoPlayerComponent: React.FC<IMultiVideoPlayerComponent> = ({
       <RenderSmoothly>
         <Row className="mt-4">
           <Col span={24}>
-            <Title className="custom-side-line" level={2}>
+            <Title className="custom-side-line" level={3}>
               Videos
             </Title>
           </Col>
           <Col span={24}>
             <Row>
-              <Col span={18} style={{ height: "415px" }}>
+              <Col span={24}>
                 <iframe
                   width="100%"
-                  height="415px"
+                  height="215px"
                   src={`https://www.youtube.com/embed/${mainVideo.key}`}
                   title="YouTube video player"
                   frameBorder={0}
                   allowFullScreen
                 ></iframe>
               </Col>
-              <Col span={6} style={{ height: "415px" }}>
+              <Col span={24}>
                 <Swiper
                   style={{ height: "100%" }}
-                  direction={"vertical"}
-                  pagination={{
-                    clickable: true,
-                  }}
                   className="mySwiper"
-                  navigation={true}
-                  modules={[Pagination]}
-                  slidesPerView={3.2}
+                  slidesPerView={2.2}
                   scrollbar
                 >
                   {videos.map((video, indKey) => (

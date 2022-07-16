@@ -73,20 +73,20 @@ const ProfileBodyView = () => {
   let state = location.state as { backgroundLocation?: Location };
 
   return (
-    <Row className="pa-3">
+    <Row className="pa-4 mt-14">
       <Col span={24}>
-        <Row className="mb-8">
+        {/* <Row className="mb-8">
           {tabs.map(({ label, icon, route }) => (
             <Col span={4}>
               <TabLabelItem label={label} icon={icon} route={route} />
             </Col>
           ))}
-        </Row>
+        </Row> */}
         <Routes location={state?.backgroundLocation || location}>
-          <Route path={"profile"} element={<ProfileTab />} />
-          <Route path={"favorites"} element={<FavoritesTab />} />
-          <Route path={"rated"} element={<RatedTab />} />
-          <Route path={"watchlist"} element={<Watchlist />} />
+          <Route path="/profile/" element={<ProfileTab />} />
+          <Route path="/favorites/" element={<FavoritesTab />} />
+          <Route path="/rated/" element={<RatedTab />} />
+          <Route path="/watchlist/" element={<Watchlist />} />
         </Routes>
       </Col>
     </Row>

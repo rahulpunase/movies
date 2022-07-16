@@ -22,6 +22,7 @@ interface IMvImage {
   width?: string;
   lazy?: boolean;
   onErrorImagePath?: string;
+  style?: any;
 }
 
 export const MvImage: FC<IMvImage> = ({
@@ -31,6 +32,7 @@ export const MvImage: FC<IMvImage> = ({
   width,
   lazy,
   onErrorImagePath,
+  ...props
 }) => {
   const { configureReducer } = useSelector((store: TRootState) => store);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -42,14 +44,19 @@ export const MvImage: FC<IMvImage> = ({
   return (
     <>
       {lazy ? (
-        <img
-          data-src={`${configureReducer.config.images.base_url}${size}${srcPath}`}
-          height={height ? height : "100%"}
-          width={width ? width : "100%"}
-          alt=""
-        />
+        <>
+          <img
+            data-src={`${configureReducer.config.images.base_url}${size}${srcPath}`}
+            height={height ? height : "100%"}
+            width={width ? width : "100%"}
+            alt=""
+            className="swiper-lazy"
+          />
+          <div className="swiper-lazy-preloader"></div>
+        </>
       ) : (
         <img
+          {...props}
           src={`${configureReducer.config.images.base_url}${size}${srcPath}`}
           height={height ? height : "100%"}
           width={width ? width : "100%"}

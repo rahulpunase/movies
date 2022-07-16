@@ -43,15 +43,15 @@ const UpComingComponent = ({ data }: any) => {
         <Col span={24}>
           <Swiper
             className="mySwiper"
-            slidesPerView={2.4}
+            slidesPerView={1.4}
             spaceBetween={20}
             onSlideChange={(_) => setActiveIndex(_.activeIndex)}
             modules={[Navigation]}
             navigation
           >
             {data &&
-              data.map((item: any) => (
-                <SwiperSlide className="mt-4 mb-4 ml-4">
+              data.map((item: any, index: number) => (
+                <SwiperSlide key={index} className="mt-4 mb-4 ml-4">
                   <UpComingItem item={item} onPlay={getVideos} />
                 </SwiperSlide>
               ))}

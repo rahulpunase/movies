@@ -22,7 +22,6 @@ const FavoritesTab = () => {
       <Tabs defaultActiveKey={defaultTab} onChange={onTabChange}>
         <Tabs.TabPane tab="Movies" key="movie">
           <List
-            grid={{ gutter: 0, column: 2 }}
             dataSource={movies}
             renderItem={(item) => {
               const toRender = JSON.parse(item.item_json) as IMovieItem;
@@ -40,7 +39,6 @@ const FavoritesTab = () => {
         </Tabs.TabPane>
         <Tabs.TabPane tab="Tv Shows" key="tv">
           <List
-            grid={{ gutter: 0, column: 2 }}
             dataSource={tvShows}
             renderItem={(item) => {
               const toRender = JSON.parse(item.item_json) as ITVShowItem;

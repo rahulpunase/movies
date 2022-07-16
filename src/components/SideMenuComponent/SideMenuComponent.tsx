@@ -14,6 +14,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { CustomThemecontext } from "src/theme/themeContext";
 import classNames from "classnames";
+import { LoginComponent, ProfileCardComponent } from "src/components";
+import { useSelector } from "react-redux";
+import { TRootState } from "src/redux/store";
 
 const { Title } = Typography;
 
@@ -46,6 +49,9 @@ const whatsPopular = [
 
 const SideMenuComponent = () => {
   const { getColors } = useContext(CustomThemecontext);
+  const { isAuthenticated } = useSelector(
+    (store: TRootState) => store.profilereducer
+  );
 
   const LibraryItem = (to: string, label: string, icon: IconDefinition) => (
     <Col span={24}>
@@ -76,7 +82,11 @@ const SideMenuComponent = () => {
   );
 
   return (
-    <Row className="pr-4 pl-4">
+    <Row className="">
+      <Col span={24}>
+        {!isAuthenticated ? <LoginComponent /> : <ProfileCardComponent />}
+      </Col>
+      <Divider className="mb-4 mt-4"></Divider>
       <Col span={24}>
         <Title level={5}>What's Popular</Title>
       </Col>

@@ -34,6 +34,10 @@ interface IProfileSlice {
     isFavLoading: boolean;
     results: Array<any>;
   };
+  watchlist: {
+    isWatchListLoading: boolean;
+    results: Array<any>;
+  };
 }
 
 const initialState: IProfileSlice = {
@@ -51,11 +55,20 @@ const initialState: IProfileSlice = {
     isFavLoading: true,
     results: [],
   },
+  watchlist: {
+    isWatchListLoading: true,
+    results: [],
+  },
 };
 
 const syncFavorites = async () => {
   const user = supabase.auth.user();
   return await supabase.from("favorites").select("*").eq("user_id", user?.id);
+};
+
+const syncWatchlist = async () => {
+  const user = supabase.auth.user();
+  return await supabase.from("watchlist").select("*").eq("user_id", user?.id);
 };
 
 export const updateProfile = createAsyncThunk<any, any>(
@@ -111,7 +124,7 @@ export const addItemToFavorite = createAsyncThunk<any, any>(
 );
 
 export const removeItemFromFavorite = createAsyncThunk<any, any>(
-  `${actionPrefix}/removeItemFromoFavorite`,
+  `${actionPrefix}/removeItemFromFavorite`,
   async ({ media_id }, { rejectWithValue }) => {
     const user = supabase.auth.user();
     const response = await supabase
@@ -126,10 +139,55 @@ export const removeItemFromFavorite = createAsyncThunk<any, any>(
   }
 );
 
+export const addItemToWatchlist = createAsyncThunk<any, any>(
+  `${actionPrefix}/addItemToWatchlist`,
+  async ({ media_id, media_type, item_json }, { rejectWithValue }) => {
+    const user = supabase.auth.user();
+    const response = await supabase.from("watchlist").insert({
+      user_id: user?.id,
+      media_type: media_type,
+      media_id: media_id,
+      item_json,
+      created_at: new Date(),
+    });
+    if (response.error) {
+      return rejectWithValue(response.error);
+    }
+    return await syncWatchlist();
+  }
+);
+
+export const removeItemFromWatchlist = createAsyncThunk<any, any>(
+  `${actionPrefix}/removeItemFromWatchlist`,
+  async ({ media_id }, { rejectWithValue }) => {
+    const user = supabase.auth.user();
+    const response = await supabase
+      .from("watchlist")
+      .delete()
+      .eq("user_id", user?.id)
+      .eq("media_id", media_id);
+    if (response.error) {
+      return rejectWithValue(response.error);
+    }
+    return await syncWatchlist();
+  }
+);
+
 export const fetchFavorites = createAsyncThunk<any, any>(
   `${actionPrefix}/fetchFavorites`,
   async (_, { rejectWithValue }) => {
     const response = await syncFavorites();
+    if (response.error) {
+      return rejectWithValue(response.error);
+    }
+    return response;
+  }
+);
+
+export const fetchWatchlist = createAsyncThunk<any, any>(
+  `${actionPrefix}/fetchWatchlist`,
+  async (_, { rejectWithValue }) => {
+    const response = await syncWatchlist();
     if (response.error) {
       return rejectWithValue(response.error);
     }
@@ -147,6 +205,21 @@ const ProfileSlice = createSlice({
     },
     logoutUser: (state) => {
       state.isAuthenticated = false;
+      state.profile = {
+        fullname: "",
+        username: "",
+        email: "",
+        isLoading: false,
+        isUpdateRequired: true,
+      };
+      state.favorites = {
+        isFavLoading: false,
+        results: [],
+      };
+      state.watchlist = {
+        isWatchListLoading: false,
+        results: [],
+      };
     },
   },
   extraReducers: {
@@ -222,6 +295,50 @@ const ProfileSlice = createSlice({
       (state, action) => {
         utils.showError("Error occurred in adding item to favorite");
         state.favorites.isFavLoading = false;
+      }
+    ),
+    ...addBuilderCases<IProfileSlice>(
+      fetchWatchlist,
+      (state, action) => {
+        state.watchlist.isWatchListLoading = true;
+      },
+      (state, action) => {
+        state.watchlist.results = action.payload.data;
+        state.watchlist.isWatchListLoading = false;
+      },
+      (state, action) => {
+        utils.showError("Error occurred in fetching watchlist");
+        state.watchlist.isWatchListLoading = false;
+      }
+    ),
+    ...addBuilderCases<IProfileSlice>(
+      addItemToWatchlist,
+      (state, action) => {
+        state.watchlist.isWatchListLoading = true;
+      },
+      (state, action) => {
+        state.watchlist.isWatchListLoading = false;
+        state.watchlist.results = action.payload.data;
+        utils.showSuccess("Item Added to watchlist.");
+      },
+      (state, action) => {
+        utils.showError("Error occurred in adding item to watchlist");
+        state.watchlist.isWatchListLoading = false;
+      }
+    ),
+    ...addBuilderCases<IProfileSlice>(
+      removeItemFromWatchlist,
+      (state, action) => {
+        state.watchlist.isWatchListLoading = true;
+      },
+      (state, action) => {
+        state.watchlist.isWatchListLoading = false;
+        state.watchlist.results = action.payload.data;
+        utils.showSuccess("Item removed from watchlist.");
+      },
+      (state, action) => {
+        utils.showError("Error occurred in adding item to watchlist");
+        state.watchlist.isWatchListLoading = false;
       }
     ),
   },

@@ -2,9 +2,10 @@ import { useLayoutEffect, useRef } from "react";
 import { Col, Row, Layout } from "antd";
 import RenderRoutes from "src/configurations/RenderRoutes";
 import HeaderComponent from "../HeaderComponent/HeaderComponent";
-import RightSideBarComponent from "../RightSideBarComponent/RightSideBarComponent";
-import SideMenuComponent from "../SideMenuComponent/SideMenuComponent";
 import styles from "../../App.module.scss";
+import { BottomNavigationComponent } from "src/components";
+import { useSelector } from "react-redux";
+import { TRootState } from "src/redux/store";
 
 const { Content } = Layout;
 
@@ -13,6 +14,9 @@ const ParentBodyComponent = () => {
   const leftFixedPanel = useRef<HTMLDivElement>(null);
   const rightFixedPanelParent = useRef<HTMLDivElement>(null);
   const rightFixedPanel = useRef<HTMLDivElement>(null);
+  const { isAuthenticated } = useSelector(
+    (store: TRootState) => store.profilereducer
+  );
   useLayoutEffect(() => {
     if (leftFixedPanelParent?.current && leftFixedPanel?.current) {
       leftFixedPanel.current.style.width = String(
@@ -28,45 +32,24 @@ const ParentBodyComponent = () => {
   return (
     <div className={`${styles.App}`}>
       <main className={styles.mainContainer}>
-        <Row className="h-100">
-          <Col
-            span={4}
-            style={{ position: "relative" }}
-            ref={leftFixedPanelParent}
-            className="theme-primary-background"
-          >
-            <div
-              ref={leftFixedPanel}
-              style={{
-                position: "fixed",
-              }}
-            >
-              <div style={{ height: "54px" }}></div>
-              <SideMenuComponent />
-            </div>
-          </Col>
-          <Col span={15} className="theme-secondary-background">
+        <Row className="pb-15">
+          <Col span={24}>
+            <HeaderComponent />
             <Content>
-              <HeaderComponent />
               <RenderRoutes />
             </Content>
           </Col>
-          <Col
-            span={5}
-            style={{ position: "relative" }}
-            ref={rightFixedPanelParent}
-            className="theme-primary-background"
-          >
-            <div
-              ref={rightFixedPanel}
-              style={{
-                position: "fixed",
-              }}
-            >
-              <RightSideBarComponent />
-            </div>
-          </Col>
         </Row>
+        <div
+          style={{
+            width: "100%",
+            bottom: 0,
+            zIndex: 1,
+          }}
+          className="position-fixed"
+        >
+          {isAuthenticated && <BottomNavigationComponent />}
+        </div>
       </main>
     </div>
   );

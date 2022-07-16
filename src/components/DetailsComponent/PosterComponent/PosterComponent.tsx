@@ -46,14 +46,14 @@ const PosterComponent: FC<IPosterComponent> = ({
 }) => {
   return (
     <RenderSmoothly>
-      <Row>
-        <Col span={9}>
+      <Row className="pa-4">
+        <Col span={24} className="br-3">
           <MvImage srcPath={imgPath} size="w600_and_h900_bestv2" />
         </Col>
-        <Col span={15}>
-          <Row className="pa-4">
-            <Col span={24} className="mb-3">
-              <Title level={2}>
+        <Col span={24}>
+          <Row className="mt-4">
+            <Col span={24} className="mb-2">
+              <Title level={3}>
                 {title} {releaseDate && `(${releaseDate.split("-")[0]})`}
               </Title>
               <Text>{tagLine}</Text>

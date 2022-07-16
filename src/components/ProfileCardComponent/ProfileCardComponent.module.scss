@@ -1,0 +1,22 @@
+.ProfileCardComponent {
+  background: rgb(48, 102, 190);
+  background: linear-gradient(
+    304deg,
+    rgba(48, 102, 190, 1) 0%,
+    rgba(43, 84, 152, 1) 19%,
+    rgba(62, 103, 171, 1) 50%,
+    rgba(43, 84, 152, 1) 80%,
+    rgba(48, 102, 190, 1) 100%
+  );
+  .profilePic {
+    height: 48px;
+    width: 48px;
+    background-color: gray;
+    border-radius: 50%;
+  }
+  .edit {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+  }
+}

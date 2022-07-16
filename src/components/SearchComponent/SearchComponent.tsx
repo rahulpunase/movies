@@ -12,7 +12,6 @@ import {
 } from "src/redux/ducks/search.slice";
 import { debounce } from "lodash";
 import SearchResultItem from "./SearchResultItem";
-import styles from "./SearchComponent.module.scss";
 
 const { Text } = Typography;
 

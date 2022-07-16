@@ -1,0 +1,16 @@
+.BottomNavigationComponent {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  backdrop-filter: blur(2px);
+  .icon {
+    transform: scale(0.8);
+  }
+  .link {
+    border-radius: 4px;
+    padding: 4px;
+
+    &.active {
+      background-color: #ffffff4b;
+    }
+  }
+}

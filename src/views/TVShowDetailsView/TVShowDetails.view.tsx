@@ -41,7 +41,7 @@ const TVShowDetailsView = () => {
     dispatch(fetchCastandCrewForTVFromId({ id: id as string }));
   }, [id, dispatch]);
   return (
-    <Row className="pa-4">
+    <Row className="mt-10">
       <Col span={24}>
         {tvShowDetails.isLoading ? (
           <LoadingViewComponent />

@@ -55,13 +55,13 @@ const ProfileTab = () => {
             onFinish={onProfileUpdate}
           >
             <Row>
-              <Col className="mr-8">
+              <Col span={24} className="mr-4 d-flex justify-center">
                 <Avatar
                   size={128}
                   icon={<Icon icon={faUser} color={getColors.dullLink} />}
                 />
               </Col>
-              <Col span={10}>
+              <Col span={24}>
                 <Row>
                   <Col span={24}>
                     <Form.Item

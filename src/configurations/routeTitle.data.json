@@ -1,0 +1,10 @@
+{
+  "/movies/": "",
+  "/tv-shows/": "",
+  "/discover/": "Discover",
+  "/movie/": "Movie",
+  "/tv/": "Tv",
+  "/people/": "People",
+  "/favorites/": "Favorites",
+  "/profile/": "Profile"
+}

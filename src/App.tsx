@@ -9,9 +9,11 @@ import { supabase } from "./services/instance/supabase.instance";
 import {
   fetchFavorites,
   fetchProfile,
+  fetchWatchlist,
   logoutUser,
   setSession,
 } from "./redux/ducks/profile.slice";
+import { Session } from "@supabase/supabase-js";
 
 const themes = ["dark", "light"];
 
@@ -22,21 +24,23 @@ function App() {
     (store: TRootState) => store.configureReducer
   );
 
-  useEffect(() => {
-    const session = supabase.auth.session();
+  const onLoadAndSync = (session: Session | null) => {
     if (session) {
       dispatch(setSession(session));
       dispatch(fetchProfile({}));
       dispatch(fetchFavorites({}));
+      dispatch(fetchWatchlist({}));
     } else {
       dispatch(logoutUser());
     }
+  };
+
+  useEffect(() => {
+    const session = supabase.auth.session();
+    onLoadAndSync(session);
 
     supabase.auth.onAuthStateChange((_event: any, session: any) => {
-      if (session) {
-        dispatch(setSession(session));
-        dispatch(fetchProfile({}));
-      }
+      onLoadAndSync(session);
     });
   }, [dispatch]);
 

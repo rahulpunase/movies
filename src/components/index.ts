@@ -13,3 +13,7 @@ export { default as RenderSmoothly } from "./RenderSmoothly/RenderSmoothly";
 export { default as UpComingComponent } from "./UpComingComponent/UpComingComponent";
 export { default as ItemAuthDropDownComponent } from "./ItemAuthDropDownComponent/ItemAuthDropDownComponent";
 export { default as FilterComponent } from "./DiscoverOptions/DiscoverOptions";
+export { default as PopularComponent } from "./PopularComponent/PopularComponent";
+export { default as LoginComponent } from "./LoginComponent/LoginComponent";
+export { default as ProfileCardComponent } from "./ProfileCardComponent/ProfileCardComponent";
+export { default as BottomNavigationComponent } from "./BottomNavigationComponent/BottomNavigationComponent";

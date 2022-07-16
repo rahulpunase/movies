@@ -12,7 +12,7 @@ interface IThemes {
 
 export const themes: IThemes = {
   dark: {
-    primaryColor: "#ea7c1b",
+    primaryColor: "#3066BE",
     background: "#0e0c10",
     lightBackground: "#2a2626",
     textColor: "#fff",

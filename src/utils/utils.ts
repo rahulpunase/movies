@@ -13,6 +13,7 @@ const utils = {
       type: "error",
       message: "Error",
       description: des,
+      placement: "bottom",
     }),
   showSuccess: (title: string, des?: string) =>
     notification.open({

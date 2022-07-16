@@ -13,9 +13,9 @@ const SearchView: React.FC = () => {
     <Modal
       footer={false}
       visible={true}
-      width={1000}
+      width={"100%"}
       onCancel={navigateBack}
-      style={{ top: "20%" }}
+      style={{ top: "0%", height: "100%" }}
     >
       <SearchComponent />
     </Modal>

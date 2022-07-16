@@ -19,7 +19,7 @@ const SearchResultItem = ({
   <Link to={`/${mediaType}/${id}`} className="d-flex w-100">
     <Row className="w-100">
       <Col
-        span={mediaType === "person" ? 5 : 3}
+        span={8}
         style={{
           height: mediaType === "person" ? "auto" : "178px",
         }}
@@ -30,7 +30,12 @@ const SearchResultItem = ({
           onErrorImagePath="http://placehold.jp/185x278.png"
         />
       </Col>
-      <Col span={mediaType === "person" ? 19 : 21}>
+      <Col
+        span={16}
+        style={{
+          height: mediaType === "person" ? "auto" : "178px",
+        }}
+      >
         <div className="ml-4 pt-2">
           <Title level={4}>{originalTitle}</Title>
           {releaseDate && <Text type="secondary">{releaseDate}</Text>}
@@ -40,7 +45,7 @@ const SearchResultItem = ({
             <>
               <Text className="mb-2">Known for: </Text>
               <List
-                grid={{ gutter: 16, column: 6 }}
+                grid={{ gutter: 1, column: 3 }}
                 dataSource={knownFor as Array<IMovieItem & ITVShowItem>}
                 renderItem={(knownFor) => (
                   <List.Item>

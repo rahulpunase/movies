@@ -93,3 +93,5 @@ export interface ISearchQueryResult {
   total_pages: number;
   total_results: number;
 }
+
+export type IMediaType = "movie" | "tv";

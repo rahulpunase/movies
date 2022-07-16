@@ -1,4 +1,4 @@
-$themeRed: #ea7c1b;
+$themePrimary: #3066be;
 $white: #ffffff;
 $lightGrey: #dadada;
 
@@ -16,7 +16,7 @@ $disabledInput: #29292c;
 $mediumBold: 400;
 
 $darkTheme: (
-  primary: $themeRed,
+  primary: $themePrimary,
   primary-background: $dark,
   secondary-background: $lightDark,
   font: $white,
@@ -31,7 +31,7 @@ $darkTheme: (
 );
 
 $lightTheme: (
-  primary: $themeRed,
+  primary: $themePrimary,
   primary-background: $white,
   secondary-background: $lightGrey,
   font: $dark,
@@ -43,6 +43,11 @@ $lightTheme: (
   disabledColor: $disabledColor,
   disabledInput: $disabledInput,
 );
+
+.white-link {
+  color: $white;
+  text-decoration: underline;
+}
 
 @mixin themable($theme-name, $map) {
   &.#{$theme-name} {
@@ -89,6 +94,9 @@ $lightTheme: (
     }
     .theme-primary-background {
       background-color: map-get($map, "primary-background");
+    }
+    .theme-primary {
+      background-color: map-get($map, "primary");
     }
     .theme-secondary-background {
       background-color: map-get($map, "secondary-background");
@@ -148,6 +156,18 @@ $lightTheme: (
     }
     .ant-avatar {
       background-color: map-get($map, "diff-backcground");
+    }
+    .ant-drawer-content {
+      background-color: map-get($map, "primary-background");
+      .ant-drawer-header {
+        background-color: map-get($map, "primary-background");
+      }
+      .ant-drawer-close {
+        display: none !important;
+      }
+    }
+    .ant-tabs-tab-btn {
+      color: map-get($map, "linkInActive");
     }
   }
 } ;
